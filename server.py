@@ -5,7 +5,7 @@ import threading
 
 class Server:
 
-	def __init__(self, host='', port=8888, max_clients=10):
+	def __init__(self, host='', port=50007, max_clients=10):
 		self.host = host
 		self.port = port
 		self.max_clients = max_clients
@@ -19,10 +19,8 @@ class Server:
 		separation_char = '>'
 		try:
 			# Sending message to connected client
-			print("GG")
 
 			conn.sendall(('Welcome to the server.\n' + stop_char).encode('utf-8'))
-			print("G")
 			while True:
 				# Receiving from client
 				choice = ""
@@ -155,10 +153,10 @@ class Server:
 		except Exception as msg:
 			print('Bind failed. Error: ', str(msg))
 			sys.exit()
-		print('Socket bind complete')
+		print("Socket bind complete")
 		# Start listening on socket
 		s.listen(self.max_clients)
-		print('Socket now listening')
+		print("Socket now listening at "+self.host+":"+ str(self.port))
 
 		# now keep talking with the client
 		while 1:
@@ -177,6 +175,6 @@ class Server:
 
 		s.close()
 
-
-server = Server()
-server.run()
+if __name__ == '__main__':
+	server = Server()
+	server.run()
